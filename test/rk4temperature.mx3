@@ -19,4 +19,4 @@ setsolver(4)
 
 run(5e-9) 
 print(m.average())
-expectv("m", m.average(), vector(-0.000, -0.000, 0.8366), 2e-3)
+expectv("m", m.average(), vector(-0.000, -0.000, 0.8366), 1e-3)
