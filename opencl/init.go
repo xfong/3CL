@@ -34,7 +34,7 @@ var (
 	ClCUnits     int                       // Get number of compute units available
 	ClWGSize     int                       // Get maximum size of work group per compute unit
 	ClPrefWGSz   int                       // Get preferred work group size of device
-        InitRandVal  uint32                    // Random value initialized on init
+	InitRandVal  uint32                    // Random value initialized on init
 )
 
 // Locks to an OS thread and initializes CUDA for that thread.

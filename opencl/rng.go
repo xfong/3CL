@@ -17,6 +17,8 @@ type Prng_ interface {
 	Init(uint32, []*cl.Event)
 	GenerateUniform(unsafe.Pointer, int, []*cl.Event) *cl.Event
 	GenerateNormal(unsafe.Pointer, int, []*cl.Event) *cl.Event
+	GetGroupSize() int
+	GetGroupCount() int
 }
 
 type Generator struct {
@@ -69,7 +71,7 @@ func (g *Generator) CreatePNG() {
 }
 
 func (g *Generator) Init(seed *uint32, events []*cl.Event) {
-	g.buf_size = 3 * MTGP32_N
+	g.buf_size = 3 * g.PRNG.GetGroupSize() * g.PRNG.GetGroupCount()
 	if seed == nil {
 		g.PRNG.Init(initRNG(), events)
 	} else {
@@ -203,7 +205,7 @@ func NewMTGPRNGParams() *mtgp32_params {
 		maxNumGroups = max_size
 	}
 	tmp.SetGroupCount(maxNumGroups)
-	if ClWGSize < MTGP32_FLOOR_2P {
+	if ClWGSize < MTGP32_TN {
 		log.Fatalln("Unable to use PRNG on device! Insufficient resources for parallel work-items")
 	}
 	local_item := MTGP32_N

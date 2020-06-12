@@ -70,7 +70,7 @@ func (b *thermField) update() {
 
 	if b.generator == nil {
 		b.generator = opencl.NewGenerator("mtgp")
-                b.seed = initRNG()
+		b.seed = initRNG()
 		b.UpdateSeed(&b.seed)
 	}
 	if b.noise == nil {
