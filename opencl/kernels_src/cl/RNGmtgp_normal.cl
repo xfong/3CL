@@ -32,6 +32,7 @@ __kernel void mtgp32_normal(
     mtgp32_t mtgp;
     uint r;
     uint o;
+	float tmpNum;
 
     mtgp.status = status;
     mtgp.param_tbl = &param_tbl[MTGP32_TS * gid];
