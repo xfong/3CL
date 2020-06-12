@@ -69,7 +69,7 @@ func (g *Generator) CreatePNG() {
 }
 
 func (g *Generator) Init(seed *uint32, events []*cl.Event) {
-	g.buf_size = 1 * MTGP32_TN
+	g.buf_size = 3 * MTGP32_N
 	if seed == nil {
 		g.PRNG.Init(initRNG(), events)
 	} else {
