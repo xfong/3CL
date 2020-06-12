@@ -43,19 +43,15 @@ func initRNG() uint32 {
 }
 
 func (b *thermField) UpdateSeed(seedVal *uint32) {
-	if seedVal == nil {
-		if b.generator == nil {
-			b.generator = opencl.NewGenerator("mtgp")
-		}
-		b.seed = initRNG()
-		b.generator.Init(&b.seed, nil)
-	} else {
-		if b.generator == nil {
-			b.generator = opencl.NewGenerator("mtgp")
-		}
-		b.seed = *seedVal
-		b.generator.Init(&b.seed, nil)
+	if b.generator == nil {
+		b.generator = opencl.NewGenerator("mtgp")
 	}
+	if seedVal == nil {
+		b.seed = initRNG()
+	} else {
+		b.seed = *seedVal
+	}
+	b.generator.Init(&b.seed, nil)
 }
 
 func (b *thermField) AddTo(dst *data.Slice) {
