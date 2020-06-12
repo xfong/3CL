@@ -197,11 +197,14 @@ func NewMTGPRNGParams() *mtgp32_params {
 	var events_list []*cl.Event
 	var event *cl.Event
 	tmp := RNGmtgp.NewMTGPParams()
-	maxGroupSize, max_size := ClCUnits, 128
-	if maxGroupSize > max_size {
-		maxGroupSize = max_size
+	maxNumGroups, max_size := ClCUnits, mtgpdc_params_num
+	if maxNumGroups > max_size {
+		maxNumGroups = max_size
 	}
-	tmp.SetGroupCount(maxGroupSize)
+	tmp.SetGroupCount(maxNumGroups)
+	if ClWGSize < MTGPDC_FLOOR_2P {
+		log.Fatalln("Unable to use PRNG on device! Insufficient resources for parallel work-items")
+	}
 	local_item := MTGP32_N
 	if local_item > ClWGSize {
 		local_item = MTGP32_TN
