@@ -34,6 +34,7 @@ var (
 	ClCUnits     int                       // Get number of compute units available
 	ClWGSize     int                       // Get maximum size of work group per compute unit
 	ClPrefWGSz   int                       // Get preferred work group size of device
+        InitRandVal  uint32                    // Random value initialized on init
 )
 
 // Locks to an OS thread and initializes CUDA for that thread.
@@ -146,6 +147,7 @@ func Init(gpu int) {
 	if err := cl.SetupCLFFT(); err != nil {
 		fmt.Printf("failed to initialize clFFT \n")
 	}
+	InitRandVal = initRNG()
 }
 
 func (s *GPU) getGpuDevice() *cl.Device {
